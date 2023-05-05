@@ -1,13 +1,18 @@
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/operations';
+import { useAuth } from 'hooks';
 // import css from './RegisterForm.module.css';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
+  const { error } = useAuth();
 
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
+    if (error) {
+      alert('User name or email already used');
+    }
     dispatch(
       register({
         name: form.elements.name.value,
