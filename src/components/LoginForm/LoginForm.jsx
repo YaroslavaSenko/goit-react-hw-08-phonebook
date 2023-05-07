@@ -1,13 +1,19 @@
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/auth/operations';
-// import css from './LoginForm.module.css';
+import { Form,  Label} from './LoginForm.styled'
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+  const { error } = useAuth();
 
   const handleSubmit = e => {
     e.preventDefault();
-    const form = e.currentTarget;
+    const form = e.target;
+
+    if (error) {
+      alert('No such user');
+    }
+
     dispatch(
       logIn({
         email: form.elements.email.value,
@@ -16,18 +22,17 @@ export const LoginForm = () => {
     );
     form.reset();
   };
-
   return (
-    <form  onSubmit={handleSubmit} autoComplete="off">
-      <label >
-        Email
-        <input type="email" name="email" />
-      </label>
-      <label >
-        Password
-        <input type="password" name="password" />
-      </label>
-      <button type="submit">Log In</button>
-    </form>
+    <Form autoComplete="off" onSubmit={handleSubmit}>
+      <Label>
+        <span>Email:</span>
+        <input id="email" name="email" type="email" />
+      </Label>
+      <Label>
+        <span>Password:</span>
+        <input id="password" name="password" type="password" />
+      </Label>
+      <button type="submit">Log in</button>
+    </Form>
   );
 };
