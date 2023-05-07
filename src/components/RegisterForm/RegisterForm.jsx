@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
-import { register } from '../../redux/auth/operations';
+import {  signup } from '../../redux/auth/operations';
 import { useAuth } from 'hooks';
-// import css from './RegisterForm.module.css';
+import { Form,  Label} from './RegisterForm.styled'
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -9,35 +9,37 @@ export const RegisterForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const form = e.currentTarget;
+    const form = e.target;
     if (error) {
       alert('User name or email already used');
     }
+
     dispatch(
-      register({
+      signup({
         name: form.elements.name.value,
         email: form.elements.email.value,
         password: form.elements.password.value,
       })
     );
+
     form.reset();
   };
 
   return (
-    <form  onSubmit={handleSubmit} autoComplete="off">
-      <label >
-        Username
-        <input type="text" name="name" />
-      </label>
-      <label >
-        Email
-        <input type="email" name="email" />
-      </label>
-      <label >
-        Password
-        <input type="password" name="password" />
-      </label>
+    <Form autoComplete="off" onSubmit={handleSubmit}>
+      <Label>
+        <span>Name:</span>
+        <input id="name" name="name" type="text" />
+      </Label>
+      <Label>
+        <span>Email:</span>
+        <input id="email" name="email" type="email" />
+      </Label>
+      <Label>
+        <span>Password:</span>
+        <input id="password" name="password" type="password" />
+      </Label>
       <button type="submit">Register</button>
-    </form>
+    </Form>
   );
 };
