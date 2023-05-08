@@ -1,6 +1,4 @@
-
-import {AuthNaviLink, AuthNavUl, AuthNavLI} from './AuthNav.styled';
-
+import { AuthNaviLink, AuthNavUl, AuthNavLI } from './AuthNav.styled';
 
 export const AuthNav = () => {
   return (
